@@ -9,7 +9,9 @@ function round(playerSelection,computerSelection){
     if (playerSelection == computerSelection) {
         return "Tie!"
     }
-    else if ((playerSelection == "rock" && computerSelection == "paper")||(playerSelection == "paper" && computerSelection == "scissors")||(playerSelection == "scissors" && computerSelection == "rock")){
+    else if ((playerSelection == "rock" && computerSelection == "paper")
+            ||(playerSelection == "paper" && computerSelection == "scissors")
+            ||(playerSelection == "scissors" && computerSelection == "rock")){
         return "You Lose! " + computerSelection + " beats " + playerSelection + "!";
     }
     else {
