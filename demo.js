@@ -1,39 +1,64 @@
-const RPS = ["rock", "paper", "scissors"];
+let playerPoint = 0; 
+let computerPoint = 0; //set initial value for player & computer
+const results = document.querySelector('#results'); //block to save each round's result
+let comPoint = document.querySelector('#com .point');
+let userPoint = document.querySelector('#user .point'); // score board 
+const plays = Array.from(document.querySelectorAll(".rps"));
+plays.forEach(play => play.addEventListener('click',round));
 
-function computerPlay(){    
+//--------------------------------------------------------
+
+function round(e){ 
+    let computerPlay = computer(); //random play by computer
+    const playerSelection = e.target.dataset.play;         
+    gameCheck(playerSelection,computerPlay); //check who win this round
+    if (playerPoint === 5){ //check who get 5 wins first
+        alert("You win the computer by beating 5 times!");
+        resetGame(); //set the game to initial status
+    }
+    else if (computerPoint === 5){
+        alert("You unfortunely lose to the computer...");
+        resetGame();
+    }         
+}
+
+function computer(){    
+    const RPS = ["rock", "paper", "scissors"];
     let x = Math.floor(Math.random()*RPS.length);
     return RPS[x];    
 }
 
-function round(playerSelection,computerSelection){
-    if (playerSelection == computerSelection) {
-        return "Tie!"
+function showResult(resultString){    
+    let content = document.createElement('div');
+    content.textContent = resultString;
+    results.appendChild(content);
+}
+
+function gameCheck(playerSelection,computerPlay){
+    if (playerSelection == computerPlay) {
+        showResult("Tie!");
     }
-    else if ((playerSelection == "rock" && computerSelection == "paper")
-            ||(playerSelection == "paper" && computerSelection == "scissors")
-            ||(playerSelection == "scissors" && computerSelection == "rock")){
-        return "You Lose! " + computerSelection + " beats " + playerSelection + "!";
+    else if ((playerSelection == "rock" && computerPlay == "paper")
+            ||(playerSelection == "paper" && computerPlay == "scissors")
+            ||(playerSelection == "scissors" && computerPlay == "rock")){
+        showResult("You lose! " + computerPlay + " beats " + playerSelection + "!");        
+        ++computerPoint;
+        comPoint.textContent = computerPoint;
     }
     else {
-        return "You win! " + playerSelection + " beats " + computerSelection + "!";
+        showResult("You win! " + playerSelection + " beats " + computerPlay + "!");
+        ++playerPoint;
+        userPoint.textContent = playerPoint;
     }
 }
 
-function game(){
-    let results = [];
-    for (i = 1; i <= 5; i++){
-        let playerSelection = prompt("Your play is?").toLowerCase();
-        if (RPS.indexOf(playerSelection) == -1 ){
-            alert("Please input only 'rock', 'paper', or 'scissors'.");
-            i -= 1;
-            continue;
-        }        
-        let computerSelection = computerPlay();
-        let result = round(playerSelection,computerSelection);
-        console.log(result);
-        results.push(result);
+function resetGame(){    
+    playerPoint = 0;
+    userPoint.textContent = playerPoint;
+    computerPoint = 0;
+    comPoint.textContent = computerPoint;
+    while(results.firstChild){
+        results.removeChild(results.firstChild);
     }
-    console.log(results);
 }
 
-console.log(game());

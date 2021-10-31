@@ -5,9 +5,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="demo.js"></script>
+    <script src="demo.js" defer></script>
 </head>
 <body>
-    
+    <div id="score">
+        <div id="user" class="board">
+            <div>Your Score</div>
+            <div class="point">0</div>
+        </div>
+        <div id="com" class="board">
+            <div>Com's Score</div>
+            <div class="point">0</div>
+        </div>
+    </div>
+    <div id="player">
+        <button data-play="rock" class="rps">Rock</button>
+        <button data-play="paper" class="rps">Paper</button>
+        <button data-play="scissors" class="rps">Scissors</button>
+    </div>
+    <div id="results"></div>
 </body>
 </html>
